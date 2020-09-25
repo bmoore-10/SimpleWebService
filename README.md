@@ -1,1 +1,12 @@
-# SimpleWebService
+# Try It Out
+The service is [currently being hosted via AWS Elastic Beanstalk](http://fetchwebservice-env.eba-nb7vs2w2.us-east-2.elasticbeanstalk.com/FetchApp), however clicking that link should only bring you to a simple webpage recommending that you read this documentation to put it to use. Using software that allows for making HTTP POST requests [(I used Postman)](https://www.postman.com/), send a POST request containing a comma-separated list of emails to the url http://fetchwebservice-env.eba-nb7vs2w2.us-east-2.elasticbeanstalk.com/FetchApp. In return, you should receive a response in the form of an integer. This integer represents the number of unique email addresses included in your request according to Gmail's account matching rules.
+### Postman-specific instructions
+When creating your POST request, make sure to define a key/value pair under the *Headers* section of the request. The Key and Value should be `Content-Type` and `application/json` respectively. Under the *Body* section is where you define your request. Select the *raw* option and send a comma-separated list of email addresses (EX: `"test.email@gmail.com, test.email+spam@gmail.com, testemail@gmail.com, test.email@fetchrewards.com"`) to the URL http://fetchwebservice-env.eba-nb7vs2w2.us-east-2.elasticbeanstalk.com/FetchApp to get back the number of unique emails in the request.
+
+# Algorithm-relevant files
+My implementation of the account-matching algorithm can specifically be found under [Controllers/FetchAppController](https://github.com/bmoore-10/SimpleWebService/blob/master/Controllers/FetchAppController.cs). This is the main file determining how the POSTed emails are separated and compared.
+# Host Your Own
+In the Releases, there should be a compiled, zipped version of the latest release of this simple webservice. After downloading the release and extracting the contained folder, run `FetchWebapp.exe`. From there, the usage will be very similar to the instructions detailed in the Try It Out section with the main difference being that the url you send your request to will instead be the URL described in your FetchWebapp.exe console window. To test that the service is working, use a browser to navigate to `[your_host_url]/FetchWebapp`. (EX: My hosting URL is `localhost:5001`, so I would navigate to `localhost:5001/FetchApp`). If you see the message asking that you review the documentation, you know the service is running and you're free to issue your POST requests.
+### Notes on hosting your own
+* Hosting the service on your own may require installing the [ASP.NET Core Runtime](https://dotnet.microsoft.com/download/dotnet-core/3.1).
+* If using Postman, you may need to install Postman Agent to issue commands to your local service.
